@@ -16,7 +16,7 @@ const EmployeesList = ({employees}) => {
         </div>
         <ul className="employees-list">
           { employees.map(employee => {
-              if (employee.name.includes(filter)) {
+              if (employee.name.toLowerCase().includes(filter.toLowerCase())) {
                 return <li key={employee.name} data-testid="employee">{employee.name}</li>
               }
             })
