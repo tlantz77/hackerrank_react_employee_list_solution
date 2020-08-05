@@ -1,22 +1,29 @@
-import React from 'react';
+import React, {useState, Fragment} from 'react';
 
-class EmployeesList extends React.Component {
+const EmployeesList = ({employees}) => {
+    const [filter, setFilter] = useState('');
 
-  render() {
-    const { employees } = this.props;
     return (
-      <React.Fragment>
+      <Fragment>
         <div className="controls">
-          <input type="text" className="filter-input" data-testid="filter-input" />
+          <input 
+            value={filter}
+            onChange={e => setFilter(e.target.value)} 
+            type="text" 
+            className="filter-input"
+            data-testid="filter-input"
+          />
         </div>
         <ul className="employees-list">
-          { employees.map(employee => (
-            <li key={employee.name} data-testid="employee">{employee.name}</li>
-          ))}
+          { employees.map(employee => {
+              if (employee.name.includes(filter)) {
+                return <li key={employee.name} data-testid="employee">{employee.name}</li>
+              }
+            })
+          }
         </ul>
-      </React.Fragment>
-    );
-  }
+      </Fragment>
+    );  
 }
 
 export default EmployeesList;
